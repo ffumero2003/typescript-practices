@@ -1,13 +1,54 @@
-.main{
+.main {
   width: 100vw;
   height: 100vh;
 }
 
-.container{
+.container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem; 
+  padding: 1rem;
 }
 
-.header{
+.header {
   text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+
+@media (max-width: 480px) {
+  .main {
+    height: auto; 
+  }
+
+  .header {
+    font-size: 1.5rem;
+  }
+
+  .container {
+    grid-template-columns: 1fr; 
+  }
+}
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .header {
+    font-size: 1.75rem;
+  }
+
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+}
+
+
+@media (min-width: 769px) {
+  .header {
+    font-size: 2rem;
+  }
+
+  .container {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
 }

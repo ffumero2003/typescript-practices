@@ -23,29 +23,53 @@ export default function App() {
     setResult(calculate(Number(price), Number(tip), Number(people)));
   };
 
+  const clearAll = () => {
+    setPrice("");
+    setTip("");
+    setPeople("");
+    setResult(null);
+  };
+
   return (
-    <div className="w-screen h-screen flex flex-col gap-4 justify-center items-center">
-      <div className="border border-black flex flex-col justify-center items-center p-3">
-        <h1 className="text-xl font-semibold">Tip Calculator</h1>
+    <div className="min-h-screen w-full bg-gradient-to-b from-indigo-50 to-white dark:from-gray-950 dark:to-gray-900 text-gray-900 dark:text-gray-100">
+      <main className="mx-auto max-w-4xl px-4 py-10">
+        <header className="mb-6 text-center">
+          <h1 className="text-3xl font-bold tracking-tight">Tip Calculator</h1>
+        </header>
 
-        <form onSubmit={(e) => e.preventDefault()} className="border border-black flex flex-col items-start p-3">
-          <NumberField label="Price"  value={price}  onChange={setPrice}  placeholder="e.g. 25000" min={0}   step={currency === "CRC" ? 1 : 0.01} />
-          <NumberField label="Tip %"  value={tip}    onChange={setTip}    placeholder="e.g. 10"   min={0}   step={0.1} />
-          <NumberField label="People" value={people} onChange={setPeople} placeholder="e.g. 2"    min={1}   step={1} />
-          <CurrencySelect currency={currency} onChange={setCurrency} />
+        <section className="rounded-3xl border border-gray-200 dark:border-gray-800 bg-white/80 dark:bg-gray-950/60 backdrop-blur p-6 shadow-md">
+          <form onSubmit={(e) => e.preventDefault()} className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <NumberField label="Price"  value={price}  onChange={setPrice}  placeholder="e.g. 25000" min={0}   step={currency === "CRC" ? 1 : 0.01} />
+            <NumberField label="Tip %"  value={tip}    onChange={setTip}    placeholder="e.g. 10"   min={0}   step={0.1} />
+            <NumberField label="People" value={people} onChange={setPeople} placeholder="e.g. 2"    min={1}   step={1} />
+            <CurrencySelect currency={currency} onChange={setCurrency} />
 
-          <button
-            type="button"
-            onClick={handleClick}
-            disabled={!isValid}
-            className="self-end mt-2 px-3 py-1 border border-black rounded-xl disabled:opacity-50 hover:border-blue-400 transition-colors duration-500"
-          >
-            Calculate
-          </button>
-        </form>
-      </div>
+            <div className="sm:col-span-2 flex items-center justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={clearAll}
+                className="px-4 py-2 rounded-xl border border-gray-300 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-900 transition"
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                onClick={handleClick}
+                disabled={!isValid}
+                className="px-4 py-2 rounded-xl bg-indigo-600 text-white shadow hover:bg-indigo-700 disabled:opacity-50 transition"
+              >
+                Calculate
+              </button>
+            </div>
+          </form>
+        </section>
 
-      {result && <ResultsPanel result={result} tipPct={tipPct} money={money} />}
+        {result && (
+          <div className="mt-6">
+            <ResultsPanel result={result} tipPct={tipPct} money={money} />
+          </div>
+        )}
+      </main>
     </div>
   );
 }
